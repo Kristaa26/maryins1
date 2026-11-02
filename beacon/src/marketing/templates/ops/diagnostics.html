@@ -1,0 +1,40 @@
+{% extends "ops/console_base.html" %}
+{% set page='diag' %}
+{% block t %}Diagnostics · Beacon Ops{% endblock %}
+{% block c %}
+<h1 style="font-size:26px; margin:0 0 4px">Connectivity diagnostics</h1>
+<p class="sub" style="margin:0 0 20px">Run a reachability probe from the Beacon host to a monitored
+   endpoint. Results are written to the agent probe log for correlation — they are not shown here.</p>
+
+{% with msgs = get_flashed_messages(with_categories=true) %}
+  {% for cat, m in msgs %}<div class="flash {{ cat }}">{{ m }}</div>{% endfor %}
+{% endwith %}
+
+<div class="panelbox">
+  <span class="eyebrow">New probe</span>
+  <h2 class="sec" style="font-size:20px">Check an endpoint</h2>
+  <form method="post" style="margin-top:12px">
+    <label style="display:block; font-size:13px; color:var(--muted); margin-bottom:6px">Host or IP to probe</label>
+    <div style="display:flex; gap:10px; flex-wrap:wrap">
+      <input name="target" placeholder="e.g. api.internal or 10.0.0.12"
+             style="flex:1; min-width:240px; padding:11px 12px; border-radius:9px; border:1px solid var(--line); background:#0a0f22; color:var(--ink); font-size:14.5px" required>
+      <button class="btn primary" type="submit">Run probe</button>
+    </div>
+  </form>
+  {% if submitted %}
+    <div class="ok-banner">
+      ✓ Probe <span class="mono">{{ job_id }}</span> queued for
+      <span class="mono">{{ submitted }}</span>. The agent will record the result to the probe log.
+      <div class="sub" style="margin-top:6px; font-size:12.5px">This console does not display probe output by design — check the agent log or the endpoint's monitor timeline.</div>
+    </div>
+  {% endif %}
+</div>
+
+<div class="panelbox" style="margin-top:18px">
+  <span class="eyebrow">How it works</span>
+  <p class="sub" style="margin:8px 0 0">The probe runs <code class="inline">ping</code> from the Beacon
+     host toward the target and appends a line to
+     <code class="inline">/var/log/beacon/probe.log</code>. Use it when a monitor flaps and you need
+     to know whether the host can see the target at all.</p>
+</div>
+{% endblock %}

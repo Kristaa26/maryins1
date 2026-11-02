@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% set active='about' %}
+{% block title %}About — Beacon by Lumen Systems{% endblock %}
+{% block body %}
+<div class="page-head"><div class="wrap">
+  <span class="eyebrow">About</span>
+  <h1>A small team, monitoring in the open</h1>
+  <p>Lumen Systems is a four-person shop. We started Beacon in June 2020 because every uptime
+     tool we tried was either a black-box SaaS or a pile of cron jobs. So we built the one we
+     wanted — and open-sourced it from day one.</p>
+</div></div>
+
+<section style="padding-top:26px"><div class="wrap">
+  <div class="split">
+    <div class="panelbox">
+      <span class="eyebrow">Our story</span>
+      <h2 class="sec" style="font-size:24px">From a weekend hack to v2.7</h2>
+      <p class="sub">The first commit landed in June 2020 on our own RepoForge server. The
+        <code class="inline">v0.1</code> preview did HTTP and TCP checks against a SQLite file
+        and a single HTML dashboard. Four years and 48 contributors later, Beacon shards checks
+        across agents, renders branded status pages, and powers the on-call rotation for teams
+        far larger than ours.</p>
+      <p class="sub">We still develop entirely in the open. The canonical repository is
+        <a class="repo-link" href="http://{{ repo_host }}/{{ project_repo }}">{{ repo_host }}/{{ project_repo }}</a>,
+        and anything you see on this site is built from a tagged release there.</p>
+    </div>
+    <div class="panelbox" id="team">
+      <span class="eyebrow">Team</span>
+      <h2 class="sec" style="font-size:24px">The maintainers</h2>
+      {% for name, role, handle in team %}
+      <div style="display:flex; align-items:center; gap:14px; padding:12px 0; border-bottom:1px solid var(--line)">
+        <div class="avatar">{{ name.split()[0][0] }}{{ name.split()[1][0] }}</div>
+        <div>
+          <div style="font-weight:600">{{ name }}</div>
+          <div class="sub" style="font-size:13.5px">{{ role }} · <span class="mono">@{{ handle }}</span></div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div></section>
+{% endblock %}

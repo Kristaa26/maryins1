@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% set active='docs' %}
+{% block title %}Docs — Beacon{% endblock %}
+{% block body %}
+<div class="page-head"><div class="wrap">
+  <span class="eyebrow">Documentation</span>
+  <h1>Quickstart</h1>
+  <p>From zero to your first green check in about five minutes. Full reference lives in the
+     <a href="http://{{ repo_host }}/{{ project_repo }}">source tree</a> under <code class="inline">docs/</code>.</p>
+</div></div>
+
+<section style="padding-top:26px"><div class="wrap">
+  <div class="split" style="align-items:start">
+    <div class="panelbox">
+      <h2 class="sec" style="font-size:22px">1 · Install</h2>
+      <p class="sub">Grab the static binary, or build from source.</p>
+      <pre class="block mono">$ curl -fsSL http://beacon.myl/dl/beacon-2.7.0-linux-amd64.tar.gz -o beacon.tgz
+$ tar xzf beacon.tgz && sudo install beacon /usr/local/bin/
+$ beacon version
+beacon v2.7.0</pre>
+
+      <h2 class="sec" style="font-size:22px; margin-top:26px">2 · Configure</h2>
+      <p class="sub">A check is a few lines of YAML.</p>
+      <pre class="block mono">checks:
+  - name: public-site
+    type: http
+    url: https://example.com
+    interval: 15s
+    assert:
+      status: 200
+      latency_below: 800ms
+  - name: db
+    type: tcp
+    address: db.internal:5432
+    interval: 10s</pre>
+
+      <h2 class="sec" style="font-size:22px; margin-top:26px">3 · Serve</h2>
+      <pre class="block mono">$ beacon serve --config /etc/beacon/beacon.yml
+✓ loaded 2 checks
+✓ dashboard on http://127.0.0.1:8080</pre>
+    </div>
+
+    <div>
+      <div class="panelbox" id="api">
+        <span class="eyebrow">Operator API</span>
+        <h2 class="sec" style="font-size:22px">Everything is a REST call</h2>
+        <table class="t">
+          <tr><th>Method</th><th>Path</th></tr>
+          <tr><td class="mono">GET</td><td class="mono">/api/v1/checks</td></tr>
+          <tr><td class="mono">POST</td><td class="mono">/api/v1/checks</td></tr>
+          <tr><td class="mono">GET</td><td class="mono">/api/v1/incidents</td></tr>
+          <tr><td class="mono">POST</td><td class="mono">/api/v1/maintenance</td></tr>
+        </table>
+        <p class="sub" style="margin-top:14px">Authenticate with an operator token from the
+          Ops Console. Tokens are scoped per environment.</p>
+      </div>
+      <div class="panelbox" style="margin-top:18px">
+        <span class="eyebrow">Need the internals?</span>
+        <h2 class="sec" style="font-size:22px">Read the source</h2>
+        <p class="sub">Architecture notes, the storage schema and the agent protocol are all in
+          <code class="inline">docs/</code> in the main repository.</p>
+        <p style="margin-top:12px"><a class="btn ghost"
+           href="http://{{ repo_host }}/{{ project_repo }}">Open {{ project_repo }} →</a></p>
+      </div>
+    </div>
+  </div>
+</div></section>
+{% endblock %}

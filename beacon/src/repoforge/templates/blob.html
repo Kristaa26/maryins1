@@ -1,0 +1,21 @@
+{% extends "base_forge.html" %}
+{% import "_repohead.html" as rh %}
+{% block title %}{{ path }} · {{ owner }}/{{ repo }}{% endblock %}
+{% block body %}
+{{ rh.head(owner, repo, meta, 'code', branch) }}
+<div class="wrap">
+  <div class="crumbs">
+    <a href="/{{ owner }}/{{ repo }}">{{ repo }}</a>
+    <span style="color:var(--muted)">/</span>
+    <span>{{ path }}</span>
+  </div>
+  <div class="card">
+    <div class="hd">
+      <span>{{ lines|length }} lines</span>
+      <span style="flex:1"></span>
+      <a class="mono" href="http://{{ host }}/{{ owner }}/{{ repo }}.git" style="color:var(--muted)">raw via git</a>
+    </div>
+    <pre class="code">{% for ln in lines %}<span class="ln">{{ "%4d"|format(loop.index) }}  {{ ln }}</span>{% endfor %}</pre>
+  </div>
+</div>
+{% endblock %}

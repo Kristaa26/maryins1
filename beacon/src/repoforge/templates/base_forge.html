@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}RepoForge{% endblock %}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/forge.css') }}">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="logo" href="{{ url_for('explore') }}"><span class="mark"></span> RepoForge</a>
+  <input class="search" placeholder="Search or jump to…" disabled>
+  <div class="spacer"></div>
+  <a href="{{ url_for('explore') }}">Explore</a>
+  <span style="color:var(--muted)">·</span>
+  <span style="color:var(--muted)">git.beacon.myl</span>
+</div></header>
+{% block body %}{% endblock %}
+<footer class="fg"><div class="wrap">
+  RepoForge · self-hosted git for Lumen Systems · Powered by RepoForge Community 1.9
+</div></footer>
+</body>
+</html>

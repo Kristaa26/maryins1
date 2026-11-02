@@ -1,0 +1,61 @@
+{% extends "base_forge.html" %}
+{% import "_repohead.html" as rh %}
+{% import "_lang.html" as lang %}
+{% block title %}{{ owner }}/{{ repo }} · RepoForge{% endblock %}
+{% block body %}
+{{ rh.head(owner, repo, meta, 'code', branch) }}
+<div class="wrap">
+  <div class="layout">
+    <div>
+      <div class="card">
+        <div class="hd">
+          <span class="mono" style="color:var(--muted)">{{ branch }}</span>
+          <span style="flex:1"></span>
+          {% if last %}
+          <a class="mono" href="/{{ owner }}/{{ repo }}/commit/{{ last.sha }}" style="color:var(--muted)">{{ last.short }}</a>
+          <span style="color:var(--muted)">{{ last.subject[:46] }}</span>
+          {% endif %}
+          <span style="flex:1"></span>
+          <a href="/{{ owner }}/{{ repo }}/commits">{{ count }} commits</a>
+        </div>
+        {% for e in entries %}
+        <div class="filerow">
+          <span class="ic">{{ '📁' if e.type=='tree' else '📄' }}</span>
+          <span class="nm">
+            {% if e.type=='tree' %}
+              <a href="/{{ owner }}/{{ repo }}/tree/{{ branch }}/{{ e.name }}">{{ e.name }}</a>
+            {% else %}
+              <a href="/{{ owner }}/{{ repo }}/blob/{{ branch }}/{{ e.name }}">{{ e.name }}</a>
+            {% endif %}
+          </span>
+        </div>
+        {% endfor %}
+      </div>
+
+      {% if readme_html %}
+      <div class="card readme">
+        <div class="hd">📖 README.md</div>
+        <div class="bd">{{ readme_html|safe }}</div>
+      </div>
+      {% endif %}
+    </div>
+
+    <aside class="side">
+      <h4>About</h4>
+      <p class="about">{{ meta.description or 'No description provided.' }}</p>
+      <div class="meta">
+        {% if meta.language %}<span>{{ lang.dot(meta.language) }}</span>{% endif %}
+        <span>★ <b>{{ meta.stars }}</b> stars</span>
+        <span>Updated {{ ago(meta.pushed_at) }}</span>
+      </div>
+      <div class="clone">
+        <h4 style="margin-top:18px">Clone</h4>
+        <div class="row">
+          <input class="mono" readonly value="http://{{ host }}/{{ owner }}/{{ repo }}.git">
+        </div>
+        <p style="color:var(--muted); font-size:12px; margin-top:8px">HTTP clone is anonymous for public repositories.</p>
+      </div>
+    </aside>
+  </div>
+</div>
+{% endblock %}

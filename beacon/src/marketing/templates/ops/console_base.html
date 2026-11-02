@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block t %}Beacon Ops Console{% endblock %}</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/site.css') }}">
+<style>
+  .opsbar{position:sticky; top:0; z-index:30; background:rgba(11,16,32,.9); backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line)}
+  .opsbar .wrap{display:flex; align-items:center; gap:22px; height:58px}
+  .opsbar .brand{font-size:16px}
+  .opsbar .tag{font-size:11px; padding:2px 8px; border-radius:999px; background:rgba(255,194,75,.12);
+    color:var(--warn); border:1px solid rgba(255,194,75,.3)}
+  .opsbar nav{display:flex; gap:18px; margin-left:10px}
+  .opsbar nav a{color:var(--muted); font-size:14px; font-weight:500}
+  .opsbar nav a.active,.opsbar nav a:hover{color:var(--ink)}
+  .opsbar .who{margin-left:auto; color:var(--muted); font-size:13px}
+  .opswrap{max-width:960px; margin:30px auto; padding:0 22px}
+  .kpi{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:22px}
+  .kpi .metric b{font-size:24px}
+  .flash{padding:10px 14px; border-radius:9px; font-size:13.5px; margin-bottom:14px}
+  .flash.warn{background:rgba(255,194,75,.1); border:1px solid rgba(255,194,75,.35); color:#ffd98a}
+  .ok-banner{background:rgba(49,208,170,.1); border:1px solid rgba(49,208,170,.4); color:#9bf0db;
+    padding:12px 14px; border-radius:9px; font-size:14px; margin-top:14px}
+</style>
+</head>
+<body>
+<header class="opsbar"><div class="wrap">
+  <span class="brand"><span class="logo"></span> Beacon Ops</span>
+  <span class="tag">INTERNAL</span>
+  <nav>
+    <a href="{{ url_for('ops_dashboard') }}" class="{{ 'active' if page=='dash' }}">Overview</a>
+    <a href="{{ url_for('ops_diagnostics') }}" class="{{ 'active' if page=='diag' }}">Diagnostics</a>
+  </nav>
+  <span class="who">{{ user }} · <a href="{{ url_for('ops_logout') }}">sign out</a></span>
+</div></header>
+<div class="opswrap">{% block c %}{% endblock %}</div>
+</body>
+</html>

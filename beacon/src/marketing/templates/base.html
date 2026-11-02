@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}Beacon — open-source uptime monitoring{% endblock %}</title>
+<meta name="description" content="Beacon is an open-source, self-hosted uptime and status monitoring platform by Lumen Systems.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/site.css') }}">
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="{{ url_for('home') }}"><span class="logo"></span> Beacon</a>
+    <nav>
+      <a href="{{ url_for('features') }}" class="{{ 'active' if active=='features' }}">Features</a>
+      <a href="{{ url_for('docs') }}" class="{{ 'active' if active=='docs' }}">Docs</a>
+      <a href="{{ url_for('changelog') }}" class="{{ 'active' if active=='changelog' }}">Changelog</a>
+      <a href="{{ url_for('status') }}" class="{{ 'active' if active=='status' }}">Status</a>
+      <a href="{{ url_for('about') }}" class="{{ 'active' if active=='about' }}">About</a>
+    </nav>
+    <div class="spacer"></div>
+    <a class="btn ghost" href="http://{{ repo_host }}/{{ project_repo }}">Source</a>
+    <a class="btn primary" href="{{ url_for('download') }}">Download</a>
+  </div>
+</header>
+
+<main>{% block body %}{% endblock %}</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <a class="brand" href="{{ url_for('home') }}"><span class="logo"></span> Beacon</a>
+        <p style="max-width:300px">Open-source uptime & status monitoring, built in the open by
+          Lumen Systems since June 2020.</p>
+        <p>Source lives on our RepoForge instance:<br>
+           <a class="repo-link" href="http://{{ repo_host }}/{{ project_repo }}">{{ repo_host }}/{{ project_repo }}</a>
+        </p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <a href="{{ url_for('features') }}">Features</a>
+        <a href="{{ url_for('download') }}">Download</a>
+        <a href="{{ url_for('changelog') }}">Changelog</a>
+        <a href="{{ url_for('status') }}">System status</a>
+      </div>
+      <div>
+        <h4>Developers</h4>
+        <a href="{{ url_for('docs') }}">Documentation</a>
+        <a href="http://{{ repo_host }}/{{ project_repo }}">Browse the source</a>
+        <a href="http://{{ repo_host }}/explore">All repositories</a>
+        <a href="{{ url_for('docs') }}#api">Operator API</a>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a href="{{ url_for('about') }}">About Lumen Systems</a>
+        <a href="{{ url_for('about') }}#team">Team</a>
+        <a href="{{ url_for('status') }}">Incidents</a>
+      </div>
+    </div>
+    <div class="legal">
+      <span>© {{ year }} Lumen Systems. Beacon is released under the Apache-2.0 licence.</span>
+      <span>Project started June 2020 · hosted on RepoForge</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

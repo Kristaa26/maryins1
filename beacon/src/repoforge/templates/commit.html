@@ -1,0 +1,20 @@
+{% extends "base_forge.html" %}
+{% import "_repohead.html" as rh %}
+{% block title %}{{ info.subject }} · {{ owner }}/{{ repo }}{% endblock %}
+{% block body %}
+{{ rh.head(owner, repo, meta, 'commits') }}
+<div class="wrap">
+  <div class="card" style="margin-top:20px">
+    <div class="hd" style="display:block">
+      <div style="font-size:15px; font-weight:600; color:var(--ink)">{{ info.subject }}</div>
+      {% if info.body %}<div style="color:var(--muted); white-space:pre-wrap; margin-top:6px">{{ info.body }}</div>{% endif %}
+      <div class="by" style="color:var(--muted); margin-top:8px; font-size:12.5px">
+        {{ info.author }} committed on {{ info.date[:10] }} ·
+        <span class="mono">{{ info.sha[:10] }}</span>
+      </div>
+    </div>
+    <pre class="diff">{% for ln in diff.split('\n') %}{% if ln.startswith('+') and not ln.startswith('+++') %}<span class="add">{{ ln }}</span>{% elif ln.startswith('-') and not ln.startswith('---') %}<span class="del">{{ ln }}</span>{% elif ln.startswith('@@') %}<span class="hunk">{{ ln }}</span>{% elif ln.startswith('diff ') or ln.startswith('index ') or ln.startswith('+++') or ln.startswith('---') %}<span class="meta">{{ ln }}</span>{% else %}{{ ln }}
+{% endif %}{% endfor %}</pre>
+  </div>
+</div>
+{% endblock %}

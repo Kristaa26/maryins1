@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% set active='home' %}
+{% block body %}
+<section class="hero">
+  <div class="wrap">
+    <span class="pill">🟢 <b>v0.1 shipped June 2020</b> · now on v2.7 · Apache-2.0</span>
+    <h1>Know when it breaks<br><span class="grad">before your users do.</span></h1>
+    <p class="lead">Beacon is a self-hosted uptime and status-monitoring platform. Run thousands of
+      HTTP, TCP, DNS and gRPC checks from a single lightweight agent, publish a branded status
+      page, and route smart alerts — all from infrastructure you control.</p>
+    <div class="cta">
+      <a class="btn primary" href="{{ url_for('download') }}">Download v2.7 →</a>
+      <a class="btn ghost" href="http://{{ repo_host }}/{{ project_repo }}">View source on RepoForge</a>
+    </div>
+    <div class="codebadge">
+      <div class="bar"><i></i><i></i><i></i></div>
+      <pre class="mono"><span class="c-com"># one binary + Postgres, nothing else</span>
+$ beacon serve --config /etc/beacon/beacon.yml
+<span class="c-ok">✓</span> loaded 1,284 checks across 9 status pages
+<span class="c-ok">✓</span> agent ready on :8080  ·  scheduler sharded (3 shards)
+<span class="c-ok">✓</span> status page live at https://status.example.com</pre>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="eyebrow">Why Beacon</span>
+    <h2 class="sec">Everything you need to watch a fleet</h2>
+    <p class="sub">No agents to babysit, no per-check pricing, no data leaving your network.</p>
+    <div class="grid c4" style="margin-top:26px">
+      {% for name, desc in features %}
+      <div class="card">
+        <div class="ic">{{ ['📡','📄','🔔','🛡️'][loop.index0] }}</div>
+        <h3>{{ name }}</h3><p>{{ desc }}</p>
+      </div>
+      {% endfor %}
+    </div>
+    <p style="margin-top:18px"><a href="{{ url_for('features') }}">See all features →</a></p>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="metrics">
+      {% for big, label in metrics %}
+      <div class="metric"><b>{{ big }}</b><span>{{ label }}</span></div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="split">
+      <div>
+        <span class="eyebrow">Open source</span>
+        <h2 class="sec">Built in the open, hosted by us</h2>
+        <p class="sub">Beacon has been Apache-2.0 since the first <code class="inline">v0.1</code>
+          preview in June 2020. Every line of the scheduler, the agent and the status-page
+          renderer lives on our self-hosted RepoForge instance — read it, fork it, send a patch.</p>
+        <ul class="feature-list">
+          <li>Full history and issues on <span class="repo-link">{{ repo_host }}/{{ project_repo }}</span></li>
+          <li>Reproducible builds; signed release tarballs</li>
+          <li>No telemetry, no phone-home, ever</li>
+          <li>48 contributors and counting</li>
+        </ul>
+        <p style="margin-top:18px">
+          <a class="btn ghost" href="http://{{ repo_host }}/{{ project_repo }}">Browse {{ project_repo }} →</a>
+        </p>
+      </div>
+      <div class="panelbox">
+        <pre class="block mono"><span style="color:#6f7cae"># clone and build from source</span>
+$ git clone http://{{ repo_host }}/{{ project_repo }}.git
+$ cd beacon
+$ make build
+$ ./bin/beacon version
+beacon v2.7.0 (apache-2.0)</pre>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

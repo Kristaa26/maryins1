@@ -1,0 +1,18 @@
+{% macro head(owner, repo, meta, active, branch='main') %}
+<div class="sub-head"><div class="wrap">
+  <div class="repo-title">
+    <a href="/{{ owner }}">{{ owner }}</a> <span class="slash">/</span>
+    <a href="/{{ owner }}/{{ repo }}">{{ repo }}</a>
+    <span class="badge">Public</span>
+    {% if meta.get('archived') %}<span class="badge">archived</span>{% endif %}
+    <span style="flex:1"></span>
+    <span class="badge">★ {{ meta.stars }}</span>
+  </div>
+  <div class="tabs">
+    <a href="/{{ owner }}/{{ repo }}" class="{{ 'active' if active=='code' }}">Code</a>
+    <a href="/{{ owner }}/{{ repo }}/commits" class="{{ 'active' if active=='commits' }}">Commits</a>
+    <a>Branches</a>
+    <a>Tags</a>
+  </div>
+</div></div>
+{% endmacro %}

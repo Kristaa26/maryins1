@@ -1,0 +1,5 @@
+docs/
+walkthrough/
+**/__pycache__/
+*.pyc
+.git/

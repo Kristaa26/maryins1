@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% set active='download' %}
+{% block title %}Download — Beacon{% endblock %}
+{% block body %}
+<div class="page-head"><div class="wrap">
+  <span class="eyebrow">Download</span>
+  <h1>Get Beacon v2.7.0</h1>
+  <p>Single static binary. No runtime dependencies beyond Postgres. Apache-2.0.</p>
+</div></div>
+<section style="padding-top:26px"><div class="wrap">
+  <div class="grid c3">
+    {% for os_name, arch, fn in [
+      ('Linux','x86_64','beacon-2.7.0-linux-amd64.tar.gz'),
+      ('Linux','arm64','beacon-2.7.0-linux-arm64.tar.gz'),
+      ('macOS','arm64','beacon-2.7.0-darwin-arm64.tar.gz')] %}
+    <div class="card">
+      <div class="ic">💾</div>
+      <h3>{{ os_name }} · {{ arch }}</h3>
+      <p class="mono" style="font-size:12.5px">{{ fn }}</p>
+      <p style="margin-top:12px"><a class="btn ghost" href="/dl/{{ fn }}">Download</a></p>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="panelbox" style="margin-top:22px">
+    <span class="eyebrow">Or build from source</span>
+    <pre class="block mono" style="margin-top:12px">$ git clone http://{{ repo_host }}/{{ project_repo }}.git
+$ cd beacon && make build</pre>
+    <p class="sub" style="margin-top:12px">Release tarballs are signed; verify against the
+      <code class="inline">SHA256SUMS</code> published with each tag on RepoForge.</p>
+  </div>
+</div></section>
+{% endblock %}

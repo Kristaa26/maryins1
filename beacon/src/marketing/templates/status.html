@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% set active='status' %}
+{% block title %}Status — Beacon{% endblock %}
+{% block body %}
+<div class="page-head"><div class="wrap">
+  <span class="eyebrow">System status</span>
+  <h1>Beacon service status</h1>
+  <p>A live example of what a Beacon-rendered status page looks like — this one watches our own
+     infrastructure.</p>
+</div></div>
+<section style="padding-top:22px"><div class="wrap">
+  <div class="statusbar">
+    <span class="dot {{ 'ok' if 'operational' in overall else 'warn' }}"></span>
+    <strong>{{ overall }}</strong>
+    <span class="sub" style="margin-left:auto; font-size:13px">updated just now · 90-day uptime shown</span>
+  </div>
+
+  {% for name, state, uptime in components %}
+  <div class="srow">
+    <div style="display:flex; align-items:center; gap:12px">
+      <span class="dot {{ 'ok' if state=='operational' else 'warn' }}"></span>
+      <strong>{{ name }}</strong>
+    </div>
+    <div style="display:flex; align-items:center; gap:16px">
+      <span class="sub mono" style="font-size:13px">{{ uptime }}%</span>
+      <span class="badge {{ 'ok' if state=='operational' else 'warn' }}">{{ state }}</span>
+    </div>
+  </div>
+  {% endfor %}
+
+  <h2 class="sec" style="font-size:22px; margin-top:34px">Recent incidents</h2>
+  {% for date, title, body in incidents %}
+  <div class="panelbox" style="margin-bottom:14px">
+    <div class="sub mono" style="font-size:12.5px">{{ date }}</div>
+    <h3 style="margin:.2em 0">{{ title }}</h3>
+    <p class="sub">{{ body }}</p>
+  </div>
+  {% endfor %}
+</div></section>
+{% endblock %}

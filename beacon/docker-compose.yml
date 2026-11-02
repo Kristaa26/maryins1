@@ -1,0 +1,17 @@
+services:
+  beacon:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: marylab/beacon:latest
+    container_name: beacon
+    hostname: beacon
+    # DHCP on the primary interface is provided by the Docker network; no IP
+    # is hard-coded. The platform maps the assigned IP to the .myl hostnames.
+    ports:
+      - "80:80"
+      - "2222:22"
+    restart: unless-stopped
+    # Default Docker capability baseline only — NO privileged mode and NO
+    # added capabilities. Root must come from the machine's own sudo
+    # misconfiguration, not from the container runtime.

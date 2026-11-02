@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% set active='changelog' %}
+{% block title %}Changelog — Beacon{% endblock %}
+{% block body %}
+<div class="page-head"><div class="wrap">
+  <span class="eyebrow">Changelog</span>
+  <h1>Release history</h1>
+  <p>Beacon has shipped continuously since the first open-source preview in June 2020.
+     Every tag is on <a href="http://{{ repo_host }}/{{ project_repo }}">RepoForge</a>.</p>
+</div></div>
+<section style="padding-top:26px"><div class="wrap">
+  {% for ver, date, tag, notes in releases %}
+  <div class="panelbox" style="margin-bottom:16px">
+    <div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap">
+      <h2 class="sec" style="font-size:22px; margin:0">{{ ver }}</h2>
+      <span class="badge {{ 'ok' if tag=='Stable' else 'warn' }}">{{ tag }}</span>
+      <span class="sub mono" style="font-size:13px">{{ date }}</span>
+    </div>
+    <ul class="feature-list">
+      {% for n in notes %}<li>{{ n }}</li>{% endfor %}
+    </ul>
+  </div>
+  {% endfor %}
+</div></section>
+{% endblock %}

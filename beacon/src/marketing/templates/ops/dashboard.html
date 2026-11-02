@@ -1,0 +1,38 @@
+{% extends "ops/console_base.html" %}
+{% set page='dash' %}
+{% block t %}Overview · Beacon Ops{% endblock %}
+{% block c %}
+<h1 style="font-size:26px; margin:0 0 4px">Operations overview</h1>
+<p class="sub" style="margin:0 0 20px">Live health of the Beacon control plane and monitored internal endpoints.</p>
+
+<div class="kpi">
+  <div class="metric"><b>1,284</b><span>active checks</span></div>
+  <div class="metric"><b>9</b><span>status pages</span></div>
+  <div class="metric"><b>3</b><span>scheduler shards</span></div>
+  <div class="metric"><b>99.96%</b><span>30-day uptime</span></div>
+</div>
+
+<div class="panelbox">
+  <span class="eyebrow">Monitored endpoints</span>
+  <h2 class="sec" style="font-size:20px">Internal targets</h2>
+  <table class="t">
+    <tr><th>Target</th><th>Type</th><th>State</th><th>Latency</th></tr>
+    {% for host, type, state, lat in monitors %}
+    <tr>
+      <td class="mono">{{ host }}</td>
+      <td>{{ type }}</td>
+      <td><span class="badge {{ 'ok' if state=='up' else 'warn' }}">{{ state }}</span></td>
+      <td class="mono">{{ lat }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+
+<div class="panelbox" style="margin-top:18px">
+  <span class="eyebrow">On-call tools</span>
+  <h2 class="sec" style="font-size:20px">Connectivity diagnostics</h2>
+  <p class="sub">Confirm whether a monitored endpoint is reachable from the Beacon host before
+     raising or clearing an incident.</p>
+  <p style="margin-top:12px"><a class="btn ghost" href="{{ url_for('ops_diagnostics') }}">Open diagnostics →</a></p>
+</div>
+{% endblock %}

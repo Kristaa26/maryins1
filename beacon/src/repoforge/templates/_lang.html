@@ -1,0 +1,4 @@
+{%- macro dot(lang) -%}
+{%- set colors = {'Python':'#3572A5','Go':'#00ADD8','JavaScript':'#f1e05a','TypeScript':'#3178c6','Shell':'#89e051','HTML':'#e34c26','CSS':'#563d7c','Rust':'#dea584','Dockerfile':'#384d54','Makefile':'#427819','HCL':'#844FBA','Ruby':'#701516','C':'#555555'} -%}
+<span class="lang-dot" style="background:{{ colors.get(lang,'#8b949e') }}"></span>{{ lang }}
+{%- endmacro -%}

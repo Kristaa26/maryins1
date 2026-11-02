@@ -1,0 +1,26 @@
+{% extends "base_forge.html" %}
+{% import "_lang.html" as lang %}
+{% block title %}{{ owner }} · RepoForge{% endblock %}
+{% block body %}
+<div class="sub-head"><div class="wrap">
+  <div class="repo-title">{{ owner }} <span class="pillcount">{{ repos|length }} repositories</span></div>
+</div></div>
+<div class="wrap">
+  <div class="repo-list">
+    {% for r in repos %}
+    <div class="item">
+      <h3><a href="/{{ r.owner }}/{{ r.repo }}">{{ r.repo }}</a>
+        {% if r.get('fork') %}<span class="badge">fork</span>{% endif %}
+        {% if r.get('archived') %}<span class="badge">archived</span>{% endif %}
+      </h3>
+      <p>{{ r.description }}</p>
+      <div class="meta">
+        {% if r.language %}<span>{{ lang.dot(r.language) }}</span>{% endif %}
+        <span>★ {{ r.stars }}</span>
+        <span>Updated {{ ago(r.pushed_at) }}</span>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% set active='features' %}
+{% block title %}Features — Beacon{% endblock %}
+{% block body %}
+<div class="page-head"><div class="wrap">
+  <span class="eyebrow">Features</span>
+  <h1>One agent. Every check you need.</h1>
+  <p>Beacon replaces a drawer full of half-maintained scripts with one binary and a Postgres
+     database. Here is what ships in the box.</p>
+</div></div>
+<section style="padding-top:28px"><div class="wrap">
+  <div class="grid c3">
+    {% for name, desc in features %}
+    <div class="card">
+      <div class="ic">{{ ['📡','📄','🔔','🛡️','🧩','⚡'][loop.index0 % 6] }}</div>
+      <h3>{{ name }}</h3><p>{{ desc }}</p>
+    </div>
+    {% endfor %}
+  </div>
+</div></section>
+<section style="padding-top:0"><div class="wrap">
+  <div class="panelbox">
+    <span class="eyebrow">Check types</span>
+    <h2 class="sec" style="font-size:24px">Probe anything that answers</h2>
+    <table class="t">
+      <tr><th>Type</th><th>What it does</th><th>Interval</th></tr>
+      <tr><td class="mono">http</td><td>Status code, latency, body &amp; TLS-expiry assertions</td><td>5s – 1h</td></tr>
+      <tr><td class="mono">tcp</td><td>Connect + optional banner match</td><td>5s – 1h</td></tr>
+      <tr><td class="mono">icmp</td><td>Ping reachability &amp; round-trip time</td><td>10s – 1h</td></tr>
+      <tr><td class="mono">dns</td><td>Record resolution &amp; expected-answer match</td><td>30s – 1h</td></tr>
+      <tr><td class="mono">grpc</td><td>Standard gRPC health protocol (new in v2.7)</td><td>5s – 1h</td></tr>
+    </table>
+  </div>
+</div></section>
+{% endblock %}

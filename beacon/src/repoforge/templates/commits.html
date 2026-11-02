@@ -1,0 +1,20 @@
+{% extends "base_forge.html" %}
+{% import "_repohead.html" as rh %}
+{% block title %}Commits · {{ owner }}/{{ repo }}{% endblock %}
+{% block body %}
+{{ rh.head(owner, repo, meta, 'commits', branch) }}
+<div class="wrap">
+  <div class="card" style="margin-top:20px">
+    <div class="hd">Commits on <span class="mono" style="color:var(--muted)">&nbsp;{{ branch }}</span></div>
+    {% for c in commits %}
+    <div class="commit-item">
+      <div class="s">
+        <div class="subject"><a href="/{{ owner }}/{{ repo }}/commit/{{ c.sha }}" style="color:var(--ink)">{{ c.subject }}</a></div>
+        <div class="by">{{ c.author }} · {{ c.date[:10] }}</div>
+      </div>
+      <a class="sha" href="/{{ owner }}/{{ repo }}/commit/{{ c.sha }}">{{ c.short }}</a>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

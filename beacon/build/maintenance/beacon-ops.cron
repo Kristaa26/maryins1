@@ -1,0 +1,3 @@
+# Beacon Ops diagnostics sandbox resetter — keeps the probe sandbox clean.
+# Runs every minute as beacon-ops.
+* * * * * /opt/beacon/maintenance/reset_sandbox.sh >> /var/log/beacon/reset.log 2>&1
